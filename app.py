@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 import yaml
 from weather_api import WeatherAPI
-from constants import JSON_FORMAT, YAML_FORMAT
+from constants import JSON_FORMAT, YAML_FORMAT, BAD_REQUEST, INTERNAL_SERVER_ERROR
 
 app = Flask(__name__)
 weather_api = WeatherAPI()
@@ -19,9 +19,9 @@ def get_current_weather():
         elif output_format == YAML_FORMAT:
             return yaml.dump(weather_info, default_flow_style=False)
         else:
-            return jsonify({"error": f"Invalid output format. Please choose {JSON_FORMAT} or {YAML_FORMAT}."}), 400
+            return jsonify({"error": f"Invalid output format. Please choose {JSON_FORMAT} or {YAML_FORMAT}."}), BAD_REQUEST 
     else:
-        return jsonify({"error": "Failed to fetch weather data for the specified city."}), 500
+        return jsonify({"error": "Failed to fetch weather data for the specified city."}), INTERNAL_SERVER_ERROR
 
 if __name__ == '__main__':
     app.run(debug=True)
