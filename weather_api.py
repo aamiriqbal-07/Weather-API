@@ -4,6 +4,7 @@ from constants import DEFAULT_DAYS
 from dotenv import load_dotenv
 from mapper import ResponseMapper
 
+
 class WeatherAPI:
     def __init__(self):
         load_dotenv()
